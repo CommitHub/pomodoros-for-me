@@ -1,0 +1,32 @@
+@import 'variables.scss';
+
+.btn {
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  background-color: $normal;
+  border: 0.125rem solid $normal;
+  padding: 1rem 3rem;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+
+  &:hover {
+    background-color: white;
+    color: $main-font-color;
+  }
+}
+
+.success-btn {
+  background-color: $success;
+  border-color: $success;
+}
+
+.warning-btn {
+  background-color: $warning;
+  border-color: $warning;
+}
+
+.danger-btn {
+  background-color: $danger;
+  border-color: $danger;
+}
