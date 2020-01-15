@@ -1,6 +1,6 @@
 <template>
   <div class="timer">
-    <p class="time">{{ timer }}</p>
+    <p class="time">{{ displayTime }}</p>
     <div class="btn-container">
       <div class="btn-division">
         <a
@@ -54,25 +54,18 @@ export default {
   mounted: function() {
     this.timePicked = this.taskTime;
   },
-  computed: {
-    timer: function() {
-      return this.displayTime;
-    }
-  },
   methods: {
     startTimer: function(time) {
-      console.log(time)
       const duration = 60 * time;
       let timer = duration, minutes, seconds;
-      setInterval(function() {
+
+      setInterval(() => {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-
         this.displayTime = `${minutes}:${seconds}`;
-        console.log(this.displayTime);
 
         if (--timer < 0) {
             timer = duration;
