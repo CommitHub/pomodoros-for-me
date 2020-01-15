@@ -6,7 +6,9 @@
   color: white;
   background-color: $normal;
   border: 0.125rem solid $normal;
-  padding: 1rem 3rem;
+  padding: 1rem 0;
+  flex-grow: 1;
+  margin: 1rem;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 

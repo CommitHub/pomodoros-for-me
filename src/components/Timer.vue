@@ -25,13 +25,7 @@
           class="btn"
           @click="pickTime(shortBreakTime)"
         >
-          Short Break
-        </a>
-        <a
-          class="btn"
-          @click="pickTime(longBreakTime)"
-        >
-          Long Break
+          Break
         </a>
         <a
           class="btn"
@@ -112,15 +106,15 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 5rem 0;
+    margin: 1rem 0 0 0;
   }
 
   .btn-division {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 60%;
-    padding: 2rem 0;
+    width: 100%;
+    padding: 1rem 0;
   }
 }
 </style>
