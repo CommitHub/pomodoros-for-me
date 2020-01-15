@@ -16,6 +16,7 @@
         </a>
         <a
           class="btn danger-btn"
+          @click="stopTimer"
         >
           Stop
         </a>
@@ -48,6 +49,7 @@ export default {
       lunchTime: 60,
       displayTime: '25:00',
       timePicked: null,
+      timer: null,
       pomodorosDone: 0
     };
   },
@@ -59,7 +61,8 @@ export default {
       const duration = 60 * time;
       let timer = duration, minutes, seconds;
 
-      setInterval(() => {
+      if (this.timer) this.stopTimer();
+      this.timer = setInterval(() => {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -71,6 +74,11 @@ export default {
             timer = duration;
         }
       }, 1000);
+    },
+    stopTimer: function() {
+      clearInterval(this.timer);
+      this.timer = false;
+      this.displayTime = '25:00';
     },
     pickTime: function(time) {
       this.timePicked = time;
