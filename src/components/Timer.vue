@@ -1,6 +1,7 @@
 <template>
   <div class="timer">
     <p class="time">{{ displayTime }}</p>
+    <p>{{ pomodorosDone }}</p>
     <div class="btn-container">
       <div class="btn-division">
         <a
@@ -71,7 +72,8 @@ export default {
         this.displayTime = `${minutes}:${seconds}`;
 
         if (--timer < 0) {
-            timer = duration;
+          timer = duration;
+          this.pomodorosDone++
         }
       }, 1000);
     },
@@ -79,6 +81,7 @@ export default {
       clearInterval(this.timer);
       this.timer = false;
       this.displayTime = '25:00';
+      this.pomodorosDone++
     },
     pickTime: function(time) {
       this.timePicked = time;
