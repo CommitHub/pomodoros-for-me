@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>Pomodoros For Me</h1>
+    <Timer />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Timer from "@/components/Timer.vue";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
+    Timer
   }
 };
 </script>
+
+<style lang="scss">
+.home {
+  h1 {
+    text-align: center;
+  }
+}
+</style>

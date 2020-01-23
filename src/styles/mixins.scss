@@ -1,0 +1,11 @@
+@import 'variables';
+
+@mixin social-button($color) {
+  padding: 1rem 3rem;
+	background-color: $color;
+  color: white;
+
+	&:hover {
+		border: 0.3125rem solid white;
+	}
+}
