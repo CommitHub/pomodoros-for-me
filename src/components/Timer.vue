@@ -6,7 +6,7 @@
       <div class="btn-division">
         <a
           class="btn success-btn"
-          @click="startTimer(timePicked)"
+          @click="startTimer(currentTime)"
         >
           Start
         </a>
@@ -48,14 +48,16 @@ export default {
       shortBreakTime: 5,
       longBreakTime: 20,
       lunchTime: 60,
-      displayTime: '25:00',
-      timePicked: null,
+      displayTime: null,
+      currentTime: null,
       timer: null,
-      pomodorosDone: 0
+      pomodorosDone: 0,
+      tookBreak: false
     };
   },
   mounted: function() {
-    this.timePicked = this.taskTime;
+    this.currentTime = this.taskTime;
+    this.displayTime = this.formatTime(this.taskTime);
   },
   methods: {
     startTimer: function(time) {
@@ -73,18 +75,43 @@ export default {
 
         if (--timer < 0) {
           timer = duration;
-          this.pomodorosDone++
+          this.stopTimer();
         }
       }, 1000);
+    },
+    formatTime: function(time) {
+      let duration = 60 * time;
+      let minutes = parseInt(duration / 60, 10);
+      let seconds = parseInt(duration % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      return `${minutes}:${seconds}`;
+    },
+    calculateTime: function() {
+      if (this.tookBreak) {
+        this.tookBreak = false;
+        this.currentTime = this.taskTime;
+        this.displayTime = this.formatTime(this.taskTime);
+      } else {
+        this.tookBreak = true;
+        this.pomodorosDone++;
+        if ((this.pomodorosDone % 4) === 0) {
+          this.currentTime = this.longBreakTime;
+          this.displayTime = this.formatTime(this.longBreakTime);
+        } else {
+          this.currentTime = this.shortBreakTime;
+          this.displayTime = this.formatTime(this.shortBreakTime);
+        }
+      }
     },
     stopTimer: function() {
       clearInterval(this.timer);
       this.timer = false;
-      this.displayTime = '25:00';
-      this.pomodorosDone++
+      this.calculateTime();
     },
     pickTime: function(time) {
-      this.timePicked = time;
+      this.currentTime = time;
     },
   },
 };
