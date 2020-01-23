@@ -9,8 +9,8 @@
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
-@import './styles/variables.scss';
+@import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+@import "./styles/variables.scss";
 
 #app {
   font-family: "Quicksand", Helvetica, Arial, sans-serif;

@@ -4,48 +4,27 @@
     <p>{{ pomodorosDone }}</p>
     <div class="btn-container">
       <div class="btn-division">
-        <a
-          class="btn success-btn"
-          @click="startTimer(currentTime)"
-        >
+        <a class="btn success-btn" @click="startTimer(currentTime)">
           Start
         </a>
-        <a
-          class="btn warning-btn"
-          @click="pauseTimer()"
-        >
+        <a class="btn warning-btn" @click="pauseTimer()">
           Pause
         </a>
-        <a
-          class="btn danger-btn"
-          @click="stopTimer"
-        >
+        <a class="btn danger-btn" @click="stopTimer">
           Stop
         </a>
       </div>
       <div class="btn-division">
-        <a
-          class="btn"
-          @click="pickTime(taskTime)"
-        >
+        <a class="btn" @click="pickTime(taskTime)">
           Set Pomodoro
         </a>
-        <a
-          class="btn"
-          @click="pickTime(shortBreakTime)"
-        >
+        <a class="btn" @click="pickTime(shortBreakTime)">
           Short Break
         </a>
-        <a
-          class="btn"
-          @click="pickTime(longBreakTime)"
-        >
+        <a class="btn" @click="pickTime(longBreakTime)">
           Long Break
         </a>
-        <a
-          class="btn"
-          @click="pickTime(lunchTime)"
-        >
+        <a class="btn" @click="pickTime(lunchTime)">
           Lunch Break
         </a>
       </div>
@@ -75,7 +54,9 @@ export default {
   methods: {
     startTimer: function(time) {
       const duration = 60 * time;
-      let timer = duration, minutes, seconds;
+      let timer = duration,
+        minutes,
+        seconds;
 
       if (this.timer) this.stopTimer();
       this.timer = setInterval(() => {
@@ -109,7 +90,7 @@ export default {
       } else {
         this.tookBreak = true;
         this.pomodorosDone++;
-        if ((this.pomodorosDone % 4) === 0) {
+        if (this.pomodorosDone % 4 === 0) {
           this.currentTime = this.longBreakTime;
           this.displayTime = this.formatTime(this.longBreakTime);
         } else {
@@ -124,7 +105,7 @@ export default {
       this.calculateTime();
     },
     pauseTimer: function() {
-      const dividedTime = this.displayTime.split(':');
+      const dividedTime = this.displayTime.split(":");
       // Divide seconds by 60 to get the accurate percentage
       const secondPercentage = parseInt(dividedTime[1]) / 60;
       // First item is minutes
@@ -135,8 +116,8 @@ export default {
     pickTime: function(time) {
       this.currentTime = time;
       this.displayTime = this.formatTime(time);
-    },
-  },
+    }
+  }
 };
 </script>
 
