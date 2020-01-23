@@ -26,15 +26,27 @@
       <div class="btn-division">
         <a
           class="btn"
+          @click="pickTime(taskTime)"
+        >
+          Set Pomodoro
+        </a>
+        <a
+          class="btn"
           @click="pickTime(shortBreakTime)"
         >
-          Break
+          Short Break
+        </a>
+        <a
+          class="btn"
+          @click="pickTime(longBreakTime)"
+        >
+          Long Break
         </a>
         <a
           class="btn"
           @click="pickTime(lunchTime)"
         >
-          Lunch
+          Lunch Break
         </a>
       </div>
     </div>
