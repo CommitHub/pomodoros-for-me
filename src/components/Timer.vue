@@ -122,6 +122,7 @@ export default {
     },
     pickTime: function(time) {
       this.currentTime = time;
+      this.displayTime = this.formatTime(time);
     },
   },
 };
