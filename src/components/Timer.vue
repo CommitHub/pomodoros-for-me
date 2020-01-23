@@ -12,6 +12,7 @@
         </a>
         <a
           class="btn warning-btn"
+          @click="pauseTimer()"
         >
           Pause
         </a>
@@ -109,6 +110,15 @@ export default {
       clearInterval(this.timer);
       this.timer = false;
       this.calculateTime();
+    },
+    pauseTimer: function() {
+      const dividedTime = this.displayTime.split(':');
+      // Divide seconds by 60 to get the accurate percentage
+      const secondPercentage = parseInt(dividedTime[1]) / 60;
+      // First item is minutes
+      this.currentTime = parseInt(dividedTime[0]) + secondPercentage;
+      clearInterval(this.timer);
+      this.timer = false;
     },
     pickTime: function(time) {
       this.currentTime = time;
