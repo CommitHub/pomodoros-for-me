@@ -9,20 +9,25 @@
 </template>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+@import "./styles/variables.scss";
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Quicksand", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: $main-font-color;
 }
 #nav {
-  padding: 30px;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
   a {
+    padding: 0 2rem;
     font-weight: bold;
-    color: #2c3e50;
+    color: $main-font-color;
     &.router-link-exact-active {
-      color: #42b983;
+      color: $main-color;
     }
   }
 }
