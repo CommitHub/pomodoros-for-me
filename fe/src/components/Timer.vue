@@ -136,7 +136,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 80%;
-  margin: 5rem auto;
+  margin: 1rem auto;
   align-items: center;
 
   .time {
