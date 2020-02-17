@@ -4,10 +4,10 @@
     <p>{{ pomodorosDone }}</p>
     <div class="btn-container">
       <div class="btn-division">
-        <a class="btn success-btn" @click="startTimer(currentTime)">
+        <a class="btn success-btn" @click="startTimer">
           Start
         </a>
-        <a class="btn warning-btn" @click="pauseTimer()">
+        <a class="btn warning-btn" @click="pauseTimer">
           Pause
         </a>
         <a class="btn danger-btn" @click="stopTimer">
@@ -52,8 +52,8 @@ export default {
     this.displayTime = this.formatTime(this.taskTime);
   },
   methods: {
-    startTimer: function(time) {
-      const duration = 60 * time;
+    startTimer: function() {
+      const duration = 60 * this.currentTime;
       let timer = duration,
         minutes,
         seconds;
