@@ -2,16 +2,19 @@
   <div class="home">
     <h1>Pomodoros For Me</h1>
     <Timer />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Timer from "@/components/Timer.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "home",
   components: {
-    Timer
+    Timer,
+    Footer
   }
 };
 </script>
