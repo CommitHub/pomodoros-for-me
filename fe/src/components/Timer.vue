@@ -1,7 +1,14 @@
 <template>
   <div class="timer">
     <p class="time">{{ displayTime }}</p>
-    <p>{{ pomodorosDone }}</p>
+    <h2 v-if="pomodorosDone">Pomodoros Done</h2>
+    <div class="pomodoros-done">
+      <img
+        src="@/assets/coffee.png"
+        v-for="pomodoro in pomodorosDone"
+        alt="coffee cup"
+      />
+    </div>
     <div class="btn-container">
       <div class="btn-division">
         <a class="btn success-btn" @click="startTimer">
@@ -134,6 +141,18 @@ export default {
 
   .time {
     font-size: 6rem;
+  }
+
+  .pomodoros-done {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    img {
+      width: 5rem;
+      height: 5rem;
+      margin: 1rem;
+    }
   }
 
   .btn-container {
