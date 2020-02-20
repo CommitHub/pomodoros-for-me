@@ -4,8 +4,9 @@
     <h2 v-if="pomodorosDone">Pomodoros Done</h2>
     <div class="pomodoros-done">
       <img
-        src="@/assets/coffee.png"
         v-for="pomodoro in pomodorosDone"
+        :key="pomodoro"
+        src="@/assets/coffee.png"
         alt="coffee cup"
       />
     </div>
