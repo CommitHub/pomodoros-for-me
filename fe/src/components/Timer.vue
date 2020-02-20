@@ -120,6 +120,8 @@ export default {
       clearInterval(this.timer);
       this.timer = false;
       this.calculateTime();
+      const audio = new Audio(require("@/assets/ding.wav"));
+      audio.play();
     },
     pauseTimer: function() {
       const dividedTime = this.displayTime.split(":");
