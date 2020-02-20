@@ -12,29 +12,29 @@
     </div>
     <div class="btn-container">
       <div class="btn-division">
-        <a class="btn success-btn" @click="startTimer">
+        <button class="btn success-btn" @click="startTimer">
           Start
-        </a>
-        <a class="btn warning-btn" @click="pauseTimer">
+        </button>
+        <button class="btn warning-btn" @click="pauseTimer">
           Pause
-        </a>
-        <a class="btn danger-btn" @click="stopTimer">
+        </button>
+        <button class="btn danger-btn" @click="stopTimer">
           Stop
-        </a>
+        </button>
       </div>
       <div class="btn-division">
-        <a class="btn" @click="pickTime(taskTime)">
+        <button class="btn" @click="pickTime(taskTime)">
           Set Pomodoro
-        </a>
-        <a class="btn" @click="pickTime(shortBreakTime)">
+        </button>
+        <button class="btn" @click="pickTime(shortBreakTime)">
           Short Break
-        </a>
-        <a class="btn" @click="pickTime(longBreakTime)">
+        </button>
+        <button class="btn" @click="pickTime(longBreakTime)">
           Long Break
-        </a>
-        <a class="btn" @click="pickTime(lunchTime)">
+        </button>
+        <button class="btn" @click="pickTime(lunchTime)">
           Lunch Break
-        </a>
+        </button>
       </div>
     </div>
   </div>
@@ -52,7 +52,8 @@ export default {
       currentTime: null,
       timer: null,
       pomodorosDone: 0,
-      tookBreak: false
+      tookBreak: false,
+      taskDone: false
     };
   },
   mounted: function() {
@@ -75,8 +76,10 @@ export default {
         seconds = seconds < 10 ? "0" + seconds : seconds;
         this.displayTime = `${minutes}:${seconds}`;
 
+        // If timer is done stop it
         if (--timer < 0) {
           timer = duration;
+          this.taskDone = true;
           this.stopTimer();
         }
       }, 1000);
@@ -97,7 +100,13 @@ export default {
         this.displayTime = this.formatTime(this.taskTime);
       } else {
         this.tookBreak = true;
-        this.pomodorosDone++;
+
+        // Don't add a pomodoro if timer is not done
+        if (this.taskDone) {
+          this.taskDone = false;
+          this.pomodorosDone++;
+        }
+
         if (this.pomodorosDone % 4 === 0) {
           this.currentTime = this.longBreakTime;
           this.displayTime = this.formatTime(this.longBreakTime);
@@ -122,6 +131,7 @@ export default {
       this.timer = false;
     },
     pickTime: function(time) {
+      this.stopTimer();
       this.currentTime = time;
       this.displayTime = this.formatTime(time);
     }
