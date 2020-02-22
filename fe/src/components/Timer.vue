@@ -1,32 +1,40 @@
 <template>
   <div class="timer">
     <p class="time">{{ displayTime }}</p>
-    <p>{{ pomodorosDone }}</p>
+    <h2 v-if="pomodorosDone">Pomodoros Done</h2>
+    <div class="pomodoros-done">
+      <img
+        v-for="pomodoro in pomodorosDone"
+        :key="pomodoro"
+        src="@/assets/coffee.png"
+        alt="coffee cup"
+      />
+    </div>
     <div class="btn-container">
       <div class="btn-division">
-        <a class="btn success-btn" @click="startTimer(currentTime)">
+        <button class="btn success-btn" @click="startTimer">
           Start
-        </a>
-        <a class="btn warning-btn" @click="pauseTimer()">
+        </button>
+        <button class="btn warning-btn" @click="pauseTimer">
           Pause
-        </a>
-        <a class="btn danger-btn" @click="stopTimer">
+        </button>
+        <button class="btn danger-btn" @click="stopTimer">
           Stop
-        </a>
+        </button>
       </div>
       <div class="btn-division">
-        <a class="btn" @click="pickTime(taskTime)">
+        <button class="btn" @click="pickTime(taskTime)">
           Set Pomodoro
-        </a>
-        <a class="btn" @click="pickTime(shortBreakTime)">
+        </button>
+        <button class="btn" @click="pickTime(shortBreakTime)">
           Short Break
-        </a>
-        <a class="btn" @click="pickTime(longBreakTime)">
+        </button>
+        <button class="btn" @click="pickTime(longBreakTime)">
           Long Break
-        </a>
-        <a class="btn" @click="pickTime(lunchTime)">
+        </button>
+        <button class="btn" @click="pickTime(lunchTime)">
           Lunch Break
-        </a>
+        </button>
       </div>
     </div>
   </div>
@@ -44,7 +52,8 @@ export default {
       currentTime: null,
       timer: null,
       pomodorosDone: 0,
-      tookBreak: false
+      tookBreak: false,
+      taskDone: false
     };
   },
   mounted: function() {
@@ -52,8 +61,8 @@ export default {
     this.displayTime = this.formatTime(this.taskTime);
   },
   methods: {
-    startTimer: function(time) {
-      const duration = 60 * time;
+    startTimer: function() {
+      const duration = 60 * this.currentTime;
       let timer = duration,
         minutes,
         seconds;
@@ -67,8 +76,10 @@ export default {
         seconds = seconds < 10 ? "0" + seconds : seconds;
         this.displayTime = `${minutes}:${seconds}`;
 
+        // If timer is done stop it
         if (--timer < 0) {
           timer = duration;
+          this.taskDone = true;
           this.stopTimer();
         }
       }, 1000);
@@ -89,7 +100,13 @@ export default {
         this.displayTime = this.formatTime(this.taskTime);
       } else {
         this.tookBreak = true;
-        this.pomodorosDone++;
+
+        // Don't add a pomodoro if timer is not done
+        if (this.taskDone) {
+          this.taskDone = false;
+          this.pomodorosDone++;
+        }
+
         if (this.pomodorosDone % 4 === 0) {
           this.currentTime = this.longBreakTime;
           this.displayTime = this.formatTime(this.longBreakTime);
@@ -103,6 +120,8 @@ export default {
       clearInterval(this.timer);
       this.timer = false;
       this.calculateTime();
+      const audio = new Audio(require("@/assets/ding.wav"));
+      audio.play();
     },
     pauseTimer: function() {
       const dividedTime = this.displayTime.split(":");
@@ -114,6 +133,7 @@ export default {
       this.timer = false;
     },
     pickTime: function(time) {
+      this.stopTimer();
       this.currentTime = time;
       this.displayTime = this.formatTime(time);
     }
@@ -129,11 +149,23 @@ export default {
   display: flex;
   flex-direction: column;
   width: 80%;
-  margin: 5rem auto;
+  margin: 1rem auto;
   align-items: center;
 
   .time {
     font-size: 6rem;
+  }
+
+  .pomodoros-done {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    img {
+      width: 5rem;
+      height: 5rem;
+      margin: 1rem;
+    }
   }
 
   .btn-container {
