@@ -4,6 +4,8 @@
   cursor: pointer;
   text-align: center;
   color: $main-font-color;
+  font-weight: bold;
+  font-size: 1.5rem;
   background-color: $normal;
   border: 0.125rem solid $normal;
   padding: 1rem;
@@ -12,9 +14,9 @@
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 
-  &:hover {
+  &:hover, &:focus {
     background-color: white;
-    color: $main-font-color;
+    color: $main-color;
   }
 }
 
