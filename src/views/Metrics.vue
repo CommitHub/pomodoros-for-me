@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import db from "../firebase/firebaseInit.js";
 
 export default {
@@ -22,7 +23,7 @@ export default {
         querySnapshot.forEach(doc => {
           const data = {
             id: doc.id,
-            date: doc.data().date,
+            date: moment(doc.data().date.milliseconds).format("YYYY-MM-DD"),
             types: doc.data().types,
             amount: doc.data().amount
           };
