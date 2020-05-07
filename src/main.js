@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import * as firebase from "firebase/app";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
@@ -21,7 +21,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 new Vue({
   router,
