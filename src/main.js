@@ -2,25 +2,26 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import * as firebase from "firebase/app";
-import dotenv from "dotenv";
+import "firebase/auth";
+import "firebase/firestore";
 import "./registerServiceWorker";
+import firebaseConfig from "./firebase/firebaseConfig.js";
 
 Vue.config.productionTip = false;
-dotenv.config();
-
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABASE_URL,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID
-};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+db.collection("pomodoros")
+  .get()
+  .then((querySnapshot) => {
+    querySnapshot.forEach(doc => {
+      console.log(doc.data())
+      console.log(`${doc.id} => ${doc.data()}`);
+    });
+  });
 
 new Vue({
   router,
