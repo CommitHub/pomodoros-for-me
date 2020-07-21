@@ -1,5 +1,5 @@
 <template>
-  <section id="metrics">
+  <section id="metrics" class="page-container">
     <h1>Metrics</h1>
     {{ pomodoros }}
   </section>

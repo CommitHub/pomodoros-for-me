@@ -3,6 +3,7 @@
     <nav>
       <a href="/">Home</a>
       <a href="/metrics">Metrics</a>
+      <a href="/register">Register</a>
     </nav>
     <router-view />
   </div>
@@ -59,5 +60,9 @@ nav {
     margin: 0 1rem;
     text-decoration: none;
   }
+}
+
+.page-container {
+  padding: 2rem;
 }
 </style>

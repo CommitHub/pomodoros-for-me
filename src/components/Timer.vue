@@ -174,6 +174,10 @@ export default {
     align-items: center;
     width: 100%;
     margin: 1rem 0 0 0;
+
+    .btn {
+      margin: 1rem;
+    }
   }
 
   .btn-division {
