@@ -1,7 +1,11 @@
 <template>
   <section id="register" class="page-container">
     <h1>Register</h1>
-    <FormulateForm v-model="formValues" class="register-form">
+    <FormulateForm
+      v-model="formValues"
+      class="register-form"
+      @submit="registerUserWithEmailAndPassword"
+    >
       <FormulateInput
         class="form-input"
         type="text"
@@ -41,12 +45,31 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   name: "Register",
   data() {
     return {
       formValues: null
     };
+  },
+  methods: {
+    registerUserWithEmailAndPassword: function() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(
+          this.formValues.email,
+          this.formValues.password
+        )
+        .then(
+          user => {
+            console.log(user);
+          },
+          err => {
+            console.error(err);
+          }
+        );
+    }
   }
 };
 </script>
