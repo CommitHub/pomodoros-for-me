@@ -63,7 +63,8 @@ export default {
         )
         .then(
           user => {
-            console.log(user);
+            this.$store.commit("addUser", user);
+            console.log(this.$store.state.user);
             this.$router.push("/");
           },
           err => {
