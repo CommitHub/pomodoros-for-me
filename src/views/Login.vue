@@ -29,7 +29,6 @@
 
 <script>
 import firebase from "firebase";
-import db from "../firebase/firebaseInit.js";
 
 export default {
   name: "Login",
@@ -46,21 +45,13 @@ export default {
           this.formValues.email,
           this.formValues.password
         )
-        .then(res => {
-          console.log(res.user.email);
-          db.collection("users")
-            .where("email", "==", res.user.email)
-            .get()
-            .then(doc => {
-              if (doc.exists) {
-                const user = doc.data();
-                this.$store.commit("addUser", user);
-                this.$router.push("/");
-              } else {
-                console.error("doc does not exist!!!");
-              }
-            })
-            .catch(err => console.error(err));
+        .then(() => {
+          const user = firebase.auth().currentUser;
+          this.$store.commit("addUser", {
+            name: user.displayName,
+            email: user.email
+          });
+          this.$router.push("/");
         })
         .catch(err => {
           console.error(err);

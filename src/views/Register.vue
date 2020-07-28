@@ -74,6 +74,7 @@ export default {
             .then(() => {
               db.collection("users")
                 .add({
+                  uid: user.uid,
                   name: this.formValues.name,
                   email: this.formValues.email,
                   role: "user",
