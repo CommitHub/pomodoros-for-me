@@ -4,6 +4,7 @@
       <a href="/">Home</a>
       <a href="/metrics">Metrics</a>
       <a href="/register">Register</a>
+      <a href="/login">Login</a>
     </nav>
     <router-view />
   </div>

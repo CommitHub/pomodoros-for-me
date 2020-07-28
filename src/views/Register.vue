@@ -64,32 +64,50 @@ export default {
           this.formValues.email,
           this.formValues.password
         )
-        .then(
-          () => {
-            db.collection("users")
-              .add({
-                name: this.formValues.name,
-                email: this.formValues.email,
-                role: "user",
-                premium: false,
-                created: moment()
-                  .utc()
-                  .toISOString(),
-                updated: moment()
-                  .utc()
-                  .toISOString()
-              })
-              .then(doc => {
-                this.$store.commit("addUser", doc);
-                console.log(doc);
-                this.$router.push("/");
-              })
-              .catch(err => console.error(err));
-          },
-          err => {
-            console.error(err);
-          }
-        );
+        .then(() => {
+          const user = firebase.auth().currentUser;
+
+          user
+            .updateProfile({
+              displayName: this.formValues.name
+            })
+            .then(() => {
+              db.collection("users")
+                .add({
+                  name: this.formValues.name,
+                  email: this.formValues.email,
+                  role: "user",
+                  premium: false,
+                  created: moment()
+                    .utc()
+                    .toISOString(),
+                  updated: moment()
+                    .utc()
+                    .toISOString()
+                })
+                .then(doc => {
+                  this.$store.commit("addUser", doc);
+                  this.$router.push("/");
+                })
+                .catch(err => {
+                  this.$store.commit("logOut");
+                  console.error(err);
+                  user.delete().catch(function(err) {
+                    console.error(err);
+                  });
+                });
+            })
+            .catch(function(err) {
+              this.$store.commit("logOut");
+              console.error(err);
+              user.delete().catch(function(err) {
+                console.error(err);
+              });
+            });
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   }
 };
