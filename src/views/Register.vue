@@ -46,6 +46,9 @@
 
 <script>
 import firebase from "firebase";
+import moment from "moment";
+import db from "../firebase/firebaseInit.js";
+
 export default {
   name: "Register",
   data() {
@@ -62,10 +65,26 @@ export default {
           this.formValues.password
         )
         .then(
-          user => {
-            this.$store.commit("addUser", user);
-            console.log(this.$store.state.user);
-            this.$router.push("/");
+          () => {
+            db.collection("users")
+              .add({
+                name: this.formValues.name,
+                email: this.formValues.email,
+                role: "user",
+                premium: false,
+                created: moment()
+                  .utc()
+                  .toISOString(),
+                updated: moment()
+                  .utc()
+                  .toISOString()
+              })
+              .then(doc => {
+                this.$store.commit("addUser", doc);
+                console.log(doc);
+                this.$router.push("/");
+              })
+              .catch(err => console.error(err));
           },
           err => {
             console.error(err);
