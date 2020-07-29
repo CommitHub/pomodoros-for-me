@@ -1,6 +1,6 @@
 <template>
   <section id="login" class="page-container">
-    <h1>Register</h1>
+    <h1>Log In</h1>
     <FormulateForm
       v-model="formValues"
       class="login-form"
@@ -24,6 +24,10 @@
       />
       <FormulateInput type="submit" label="Log In" />
     </FormulateForm>
+    <div class="helpful-links-container">
+      <router-link to="/">Forgot Password</router-link>
+      <p>Not a member? <router-link to="/register">Register</router-link></p>
+    </div>
   </section>
 </template>
 
@@ -85,6 +89,14 @@ export default {
     }
     button {
       @extend .btn;
+    }
+  }
+
+  .helpful-links-container {
+    display: flex;
+
+    a:first-child {
+      margin-right: 1rem;
     }
   }
 }

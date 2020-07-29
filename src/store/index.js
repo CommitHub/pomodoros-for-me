@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import firebase from "firebase";
 
 Vue.use(Vuex);
 
@@ -10,15 +9,10 @@ const store = new Vuex.Store({
   },
   mutations: {
     addUser(state, payload) {
-      this.state.user = payload;
+      state.user = payload;
     },
-    logOut(state) {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.state.user = {};
-        });
+    removeUser(state) {
+      state.user = {};
     }
   }
 });

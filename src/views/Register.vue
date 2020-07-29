@@ -41,6 +41,7 @@
       />
       <FormulateInput type="submit" label="Register" />
     </FormulateForm>
+    <p>Already a member? <router-link to="/login">Log In</router-link></p>
   </section>
 </template>
 
