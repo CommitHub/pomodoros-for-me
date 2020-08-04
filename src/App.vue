@@ -2,7 +2,6 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link>
-      <router-link to="/metrics">Metrics</router-link>
       <router-link to="/register" v-if="!loggedIn">Register</router-link>
       <router-link to="/login" v-if="!loggedIn">Login</router-link>
       <a href="/" v-if="loggedIn" v-on:click="logout">
