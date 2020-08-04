@@ -25,7 +25,7 @@
       <FormulateInput type="submit" label="Log In" />
     </FormulateForm>
     <div class="helpful-links-container">
-      <router-link to="/">Forgot Password</router-link>
+      <router-link to="/reset-password">Forgot Password</router-link>
       <p>Not a member? <router-link to="/register">Register</router-link></p>
     </div>
   </section>
