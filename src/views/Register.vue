@@ -42,6 +42,12 @@
       <FormulateInput type="submit" label="Register" />
     </FormulateForm>
     <p>Already a member? <router-link to="/login">Log In</router-link></p>
+    <Toaster
+      v-if="toaster.alert"
+      :icon="toaster.icon"
+      :type="toaster.type"
+      :message="toaster.message"
+    />
   </section>
 </template>
 
@@ -49,12 +55,22 @@
 import firebase from "firebase";
 import moment from "moment";
 import db from "../firebase/firebaseInit.js";
+import Toaster from "../components/Toaster.vue";
 
 export default {
   name: "Register",
+  components: {
+    Toaster
+  },
   data() {
     return {
-      formValues: null
+      formValues: null,
+      toaster: {
+        alert: null,
+        icon: "",
+        type: "",
+        message: ""
+      }
     };
   },
   methods: {
@@ -94,22 +110,43 @@ export default {
                 .catch(err => {
                   this.$store.commit("logOut");
                   console.error(err);
+                  this.alert("bug", "danger", err);
                   user.delete().catch(function(err) {
                     console.error(err);
+                    this.alert("bug", "danger", err);
                   });
                 });
             })
             .catch(function(err) {
               this.$store.commit("logOut");
               console.error(err);
+              this.alert("bug", "danger", err);
               user.delete().catch(function(err) {
                 console.error(err);
+                this.alert("bug", "danger", err);
               });
             });
         })
         .catch(err => {
           console.error(err);
         });
+    },
+    alert: function(icon, type, message) {
+      this.toaster = {
+        alert: true,
+        icon,
+        type,
+        message
+      };
+      setTimeout(this.clearAlert, 5000);
+    },
+    clearAlert: function() {
+      this.toaster = {
+        alert: null,
+        icon: "",
+        type: "",
+        message: ""
+      };
     }
   }
 };

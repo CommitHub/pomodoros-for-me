@@ -1,10 +1,10 @@
 <template>
-  <section id="login" class="page-container">
-    <h1>Log In</h1>
+  <section id="reset-pw" class="page-container">
+    <h1>Reset Password</h1>
     <FormulateForm
       v-model="formValues"
-      class="login-form"
-      @submit="loginUserWithEmailAndPassword"
+      class="reset-form"
+      @submit="resetPassword"
     >
       <FormulateInput
         class="form-input"
@@ -14,20 +14,8 @@
         placeholder="Email address"
         validation="required|email"
       />
-      <FormulateInput
-        class="form-input"
-        type="password"
-        label="Password"
-        name="password"
-        placeholder="Your password"
-        validation="required"
-      />
-      <FormulateInput type="submit" label="Log In" />
+      <FormulateInput type="submit" label="Reset Password" />
     </FormulateForm>
-    <div class="helpful-links-container">
-      <router-link to="/reset-password">Forgot Password</router-link>
-      <p>Not a member? <router-link to="/register">Register</router-link></p>
-    </div>
     <Toaster
       v-if="toaster.alert"
       :icon="toaster.icon"
@@ -42,7 +30,7 @@ import firebase from "firebase";
 import Toaster from "../components/Toaster.vue";
 
 export default {
-  name: "Login",
+  name: "ResetPW",
   components: {
     Toaster
   },
@@ -58,24 +46,20 @@ export default {
     };
   },
   methods: {
-    loginUserWithEmailAndPassword: function() {
+    resetPassword: function() {
       firebase
         .auth()
-        .signInWithEmailAndPassword(
-          this.formValues.email,
-          this.formValues.password
-        )
+        .sendPasswordResetEmail(this.formValues.email)
         .then(() => {
-          const user = firebase.auth().currentUser;
-          this.$store.commit("addUser", {
-            name: user.displayName,
-            email: user.email
-          });
-          this.$router.push("/");
+          this.alert(
+            "inbox",
+            "success",
+            "Please check your inbox to reset your password"
+          );
         })
         .catch(err => {
-          this.alert("bug", "danger", err);
           console.error(err);
+          this.alert("bug", "danger", err);
         });
     },
     alert: function(icon, type, message) {
@@ -102,8 +86,8 @@ export default {
 <style lang="scss">
 @import "../styles/variables.scss";
 @import "../styles/general-styles.scss";
-#login {
-  .login-form {
+#reset-pw {
+  .reset-form {
     width: 90%;
     margin: 2rem 0;
     display: flex;
@@ -123,14 +107,6 @@ export default {
     }
     button {
       @extend .btn;
-    }
-  }
-
-  .helpful-links-container {
-    display: flex;
-
-    a:first-child {
-      margin-right: 1rem;
     }
   }
 }
