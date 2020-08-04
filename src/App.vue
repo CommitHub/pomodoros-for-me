@@ -19,13 +19,14 @@ import firebase from "firebase";
 export default {
   name: "App",
   created() {
-    const user = firebase.auth().currentUser;
-    if (user) {
-      this.$store.commit("addUser", {
-        name: user.displayName,
-        email: user.email
-      });
-    }
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.commit("addUser", {
+          name: user.displayName,
+          email: user.email
+        });
+      }
+    });
   },
   computed: {
     user() {
