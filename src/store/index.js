@@ -5,14 +5,17 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    loggedIn: false
   },
   mutations: {
     addUser(state, payload) {
       state.user = payload;
+      state.loggedIn = true;
     },
     removeUser(state) {
       state.user = {};
+      state.loggedIn = false;
     }
   }
 });

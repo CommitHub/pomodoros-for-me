@@ -1,14 +1,53 @@
 <template>
   <div id="app">
     <nav>
-      <a href="/">Home</a>
-      <a href="/metrics">Metrics</a>
-      <a href="/register">Register</a>
-      <a href="/login">Login</a>
+      <router-link to="/">Home</router-link>
+      <router-link to="/metrics">Metrics</router-link>
+      <router-link to="/register" v-if="!loggedIn">Register</router-link>
+      <router-link to="/login" v-if="!loggedIn">Login</router-link>
+      <a href="/" v-if="loggedIn" v-on:click="logout">
+        Logout
+      </a>
     </nav>
     <router-view />
   </div>
 </template>
+
+<script>
+import firebase from "firebase";
+
+export default {
+  name: "App",
+  created() {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      this.$store.commit("addUser", {
+        name: user.displayName,
+        email: user.email
+      });
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    loggedIn() {
+      return this.$store.state.loggedIn;
+    }
+  },
+  methods: {
+    logout: function() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.go({ path: this.$router.path });
+          this.$store.commit("removeUser");
+        });
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
