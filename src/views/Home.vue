@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="home" class="page-container">
     <h1>Pomodoros For Me</h1>
     <Timer />
     <Footer />
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss">
-.home {
+#home {
   h1 {
     text-align: center;
   }

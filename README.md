@@ -25,5 +25,9 @@ yarn test:unit
 yarn lint
 ```
 
+### Public Trello Board
+
+[Trello Board](https://trello.com/b/jdS35d3N/pomodoros-for-me)
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
