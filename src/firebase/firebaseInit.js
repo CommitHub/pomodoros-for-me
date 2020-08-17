@@ -5,5 +5,6 @@ import firebaseConfig from "./firebaseConfig.js";
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 export default firebase.firestore();
