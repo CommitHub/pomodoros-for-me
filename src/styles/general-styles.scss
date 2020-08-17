@@ -24,6 +24,10 @@ a {
   color: $main-color;
 }
 
+input {
+  background-color: white !important;
+}
+
 .success-btn {
   background-color: $success;
   border-color: $success;
