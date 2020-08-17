@@ -8,6 +8,7 @@ import App from "./App.vue";
 import router from "./router";
 import "./registerServiceWorker";
 import store from "./store/index";
+import vuetify from "./plugins/vuetify";
 
 library.add(faInbox);
 library.add(faBug);
@@ -20,5 +21,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   render: h => h(App),
+  vuetify,
   store: store
 }).$mount("#app");

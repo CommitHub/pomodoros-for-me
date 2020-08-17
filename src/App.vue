@@ -50,12 +50,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
 @import "./styles/variables.scss";
-@import "./styles/reset.scss";
 
 #app {
-  font-family: "Quicksand", Helvetica, Arial, sans-serif;
+  font-family: "Arvo", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $main-font-color;
