@@ -52,7 +52,6 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
 @import "./styles/variables.scss";
-@import "./styles/reset.scss";
 
 #app {
   font-family: "Arvo", serif;
