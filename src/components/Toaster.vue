@@ -22,7 +22,7 @@ export default {
   background-color: $danger;
 }
 .normal {
-  background-color: $main-color;
+  background-color: $accent-color;
 }
 .toaster {
   padding: 1rem;
