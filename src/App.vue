@@ -1,64 +1,25 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/register" v-if="!loggedIn">Register</router-link>
-      <router-link to="/login" v-if="!loggedIn">Login</router-link>
-      <a href="/" v-if="loggedIn" v-on:click="logout">
-        Logout
-      </a>
-    </nav>
     <router-view />
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
-
 export default {
-  name: "App",
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.$store.commit("addUser", {
-          name: user.displayName,
-          email: user.email
-        });
-      }
-    });
-  },
-  computed: {
-    user() {
-      return this.$store.state.user;
-    },
-    loggedIn() {
-      return this.$store.state.loggedIn;
-    }
-  },
-  methods: {
-    logout: function() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.go({ path: this.$router.path });
-          this.$store.commit("removeUser");
-        });
-    }
-  }
+  name: "App"
 };
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
 @import "./styles/variables.scss";
-@import "./styles/reset.scss";
 
 #app {
-  font-family: "Quicksand", Helvetica, Arial, sans-serif;
+  font-family: "Arvo", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $main-font-color;
+  margin-top: 2rem;
 }
 
 body {
@@ -87,22 +48,5 @@ h5 {
 
 h6 {
   font-size: 0.67em;
-}
-
-nav {
-  background-color: $success;
-  padding: 1rem;
-  margin-bottom: 2rem;
-
-  a {
-    color: $main-font-color;
-    font-size: 1.5rem;
-    margin: 0 1rem;
-    text-decoration: none;
-  }
-}
-
-.page-container {
-  padding: 2rem;
 }
 </style>
